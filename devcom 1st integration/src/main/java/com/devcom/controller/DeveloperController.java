@@ -55,7 +55,7 @@ public class DeveloperController {
 
 	@PostMapping("/adddetails")
 	public ResponseEntity<String> addDeveloper(@RequestBody DeveloperDTO developerdto) {
-		Optional<Developer> opt = devRepo.findByMail(developerdto.getEmail());
+		Optional<Developer> opt = devRepo.findByEmail(developerdto.getEmail());
 		if (opt.isPresent()) {
 			throw new DeveloperAlreadyExistsException();
 		} else {
