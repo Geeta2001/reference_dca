@@ -13,6 +13,12 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>("User Not Found",HttpStatus.NOT_FOUND);
 	}
 	
+	@ExceptionHandler(value=DeveloperExistsException.class)
+	public ResponseEntity<String> developerExistsExceptionHandler(DeveloperExistsException ex){
+		
+		return new ResponseEntity<>("Developer already exists",HttpStatus.NOT_FOUND);
+	}
+	
 	@ExceptionHandler(value=DeveloperNotFoundException.class)
 	public ResponseEntity<String> developerNotFoundExceptionHandler(DeveloperNotFoundException ex){
 		

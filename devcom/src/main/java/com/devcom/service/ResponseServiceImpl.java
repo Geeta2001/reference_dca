@@ -3,8 +3,6 @@ package com.devcom.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.devcom.dto.ResponseDTO;
@@ -31,7 +29,7 @@ public class ResponseServiceImpl implements ResponseService {
 	FeedRepository feedRepository;
 	
 	@Override
-	public ResponseEntity<String> addResponse(ResponseDTO responsedto) {
+	public Response addResponse(ResponseDTO responsedto) {
 		Optional<Developer> developer = developerRepository.findById(responsedto.getDevId());
 		Optional<Feed> feed = feedRepository.findById(responsedto.getFeedId());
 		Response response= new Response();		
@@ -45,21 +43,16 @@ public class ResponseServiceImpl implements ResponseService {
 			throw new FeedNotFoundException();
 		}
 		response.setFeed(feed.get());
-		responseRepository.save(response);
-		return new ResponseEntity<>("Response added", HttpStatus.OK);
+		return responseRepository.save(response);
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public ResponseEntity<String> editResponse(int respId, ResponseDTO responsedto) {
+	public Response editResponse(int respId, ResponseDTO responsedto) {
 		
 		Response getResp=responseRepository.getById(respId);
 		getResp.setAnswer(responsedto.getAnswer());
-		
-		Response updateResp= responseRepository.save(getResp);
-		
-		ResponseEntity.ok().body(updateResp);
-		return new ResponseEntity<>("Response updated", HttpStatus.OK);
+		return responseRepository.save(getResp);
 	}
 
 	@Override

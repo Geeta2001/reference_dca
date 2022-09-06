@@ -3,9 +3,10 @@ package com.devcom.service;
 import org.springframework.http.ResponseEntity;
 
 import com.devcom.dto.UserDTO;
+import com.devcom.entity.User;
 
 public interface UserService {
-	public ResponseEntity<String> registerUser(UserDTO userdto);
+	public User registerUser(UserDTO userdto);
 
-	ResponseEntity<String> loginUser(UserDTO userdto);
+//	public ResponseEntity<String> loginUser(UserDTO userdto);
 }

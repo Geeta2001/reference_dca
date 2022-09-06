@@ -3,15 +3,13 @@ package com.devcom.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.devcom.dto.FeedDTO;
 import com.devcom.entity.Developer;
 import com.devcom.entity.Feed;
 import com.devcom.exception.DeveloperNotFoundException;
-import com.devcom.exception.ResponseNotFoundException;
+import com.devcom.exception.FeedNotFoundException;
 import com.devcom.repository.DeveloperRepository;
 import com.devcom.repository.FeedRepository;
 
@@ -24,7 +22,7 @@ public class FeedServiceImpl implements FeedService {
 	DeveloperRepository developerRepository;	
 	
 	@Override
-	public ResponseEntity<String> addFeed(FeedDTO feeddto) {
+	public Feed addFeed(FeedDTO feeddto) {
 		Feed feed1=new Feed();
 		Optional<Developer> developer = developerRepository.findById(feeddto.getDevId());
 		feed1.setQuery(feeddto.getQuery());
@@ -34,16 +32,15 @@ public class FeedServiceImpl implements FeedService {
 			throw new DeveloperNotFoundException();
 		}
 		feed1.setDeveloper(developer.get());
-		feedRepository.save(feed1);
-		return new ResponseEntity<>("Feed added", HttpStatus.OK);
+		return  feedRepository.save(feed1);
 	}
 	
 	@Override
 	public String removeFeed(int feedid) {
 		
-		Optional<Feed> feed =feedRepository.findById(feedid);
+		Optional<Feed> feed = feedRepository.findById(feedid);
 		if(!feed.isPresent()) {
-			throw new ResponseNotFoundException();
+			throw new FeedNotFoundException();
 		}
 		feedRepository.deleteById(feedid);
         return "Feed Deleted";

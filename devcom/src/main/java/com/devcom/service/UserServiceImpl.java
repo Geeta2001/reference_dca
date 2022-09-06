@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 	UserRepository userRepository;
 
 	@Override
-	public ResponseEntity<String> registerUser(UserDTO userdto) {
+	public User registerUser(UserDTO userdto) {
 		User user = new User();
 		
 		user.setUserName(userdto.getUserName());
@@ -29,12 +29,11 @@ public class UserServiceImpl implements UserService {
 		if(opt1.isPresent()) {
 			throw new UserExistsException();
 		}else {
-			userRepository.save(user);
-			return new ResponseEntity<>("Success", HttpStatus.OK);
+			return userRepository.save(user);
 		}
 	}
 	
-	@Override
+/*	@Override
 	public ResponseEntity<String> loginUser(UserDTO userdto) {
 		String username = userdto.getUserName();
 		String password = userdto.getPassword();
@@ -42,8 +41,9 @@ public class UserServiceImpl implements UserService {
 		
 		if(opt.isPresent() && opt.get().getPassword().equals(password)) {
 			return new ResponseEntity<>("Login successfully", HttpStatus.OK);
+		
 		}else {
 			throw new InvalidCredentialsException();
 		}
-	}
+	} */
 }

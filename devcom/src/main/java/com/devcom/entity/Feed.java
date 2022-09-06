@@ -1,11 +1,8 @@
 package com.devcom.entity;
 
 import java.sql.Date;
-//import java.time.LocalDate;
-//import java.time.LocalTime;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,15 +16,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 	public class Feed {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
-		@Column
 		int feedid;
-		@Column
 		String query;
 		@JsonFormat(pattern="dd-MM-yyyy")
 		private Date feedDate;
-		@Column
 		String topic;
-		@Column
 		int relevance;
 		
 		@ManyToOne(cascade =CascadeType.MERGE)

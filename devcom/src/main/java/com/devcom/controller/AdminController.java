@@ -1,15 +1,23 @@
 package com.devcom.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.devcom.dto.DeveloperDTO;
+import com.devcom.entity.Developer;
+import com.devcom.entity.Feed;
+import com.devcom.entity.Response;
+import com.devcom.exception.FeedNotFoundException;
+import com.devcom.exception.ResponseNotFoundException;
+import com.devcom.repository.FeedRepository;
+import com.devcom.repository.ResponseRepository;
 import com.devcom.service.DeveloperService;
 import com.devcom.service.FeedService;
 import com.devcom.service.ResponseService;
@@ -27,25 +35,43 @@ public class AdminController {
 	@Autowired
 	DeveloperService developerService;
 	
+	@Autowired
+	FeedRepository feedRepository;
+	
+	@Autowired
+	ResponseRepository responseRepository;
+	
 	@PutMapping("/blockdeveloper/{devId}")
-	public ResponseEntity<String> blockDeveloper(@PathVariable("devId") int devId, @RequestBody DeveloperDTO developerdto) {
-		return this.developerService.blockDeveloper(developerdto,devId);
-	}
+	public ResponseEntity<Developer> blockUser(@PathVariable("devId") int devId) {
+		Developer savestatus = developerService.blockUser(devId);
+		return ResponseEntity.ok().body(savestatus);
+		}
 	
 	@PutMapping("/unblockdeveloper/{devId}")
-	public ResponseEntity<String> unblockDeveloper(@PathVariable("devId") int devId, @RequestBody DeveloperDTO developerdto) {
-		return this.developerService.unblockDeveloper(developerdto,devId);
-	}
+	public ResponseEntity<Developer> unblockUser(@PathVariable("devId") int devId) {
+		Developer savestatus = developerService.unblockUser(devId);
+		return ResponseEntity.ok().body(savestatus);
+		}
 	
 	@DeleteMapping("/deletefeed/{feedId}")
-	public String removeFeed(@PathVariable("feedId") int feedId) {
-	     
-	     return feedService.removeFeed(feedId);
+	public ResponseEntity<String> removeFeed(@PathVariable("feedId") int feedId) {
+		Optional<Feed> opt = feedRepository.findById(feedId);
+		if(opt.isEmpty()) {
+			throw new FeedNotFoundException();
+		}else {
+			feedService.removeFeed(feedId);
+			return new ResponseEntity<>("Feed Removed", HttpStatus.OK);
+		}
 	}
 	
 	@DeleteMapping("/deleteresponse/{respId}")
-	public String removeResponse(@PathVariable( "respId") int respId) {
+	public ResponseEntity<String> removeResponse(@PathVariable( "respId") int respId) {
 	     
-	     return responseService.removeResponse(respId);
-	}
+		Optional<Response> opt = responseRepository.findById(respId);
+		if(opt.isEmpty()) {
+			throw new ResponseNotFoundException();
+		}else {
+			responseService.removeResponse(respId);
+			return new ResponseEntity<>("Response Removed", HttpStatus.OK);
+		}	}
 }
