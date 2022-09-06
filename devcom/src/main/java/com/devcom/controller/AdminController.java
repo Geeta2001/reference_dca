@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devcom.entity.Developer;
 import com.devcom.entity.Feed;
 import com.devcom.entity.Response;
+import com.devcom.exception.DeveloperNotFoundException;
 import com.devcom.exception.FeedNotFoundException;
 import com.devcom.exception.ResponseNotFoundException;
+import com.devcom.repository.DeveloperRepository;
 import com.devcom.repository.FeedRepository;
 import com.devcom.repository.ResponseRepository;
 import com.devcom.service.DeveloperService;
@@ -36,6 +38,9 @@ public class AdminController {
 	DeveloperService developerService;
 	
 	@Autowired
+	DeveloperRepository developerRepository;
+	
+	@Autowired
 	FeedRepository feedRepository;
 	
 	@Autowired
@@ -43,12 +48,20 @@ public class AdminController {
 	
 	@PutMapping("/blockdeveloper/{devId}")
 	public ResponseEntity<Developer> blockUser(@PathVariable("devId") int devId) {
+		Optional<Developer> opt = developerRepository.findById(devId);
+		if (opt.isEmpty()) {
+			throw new DeveloperNotFoundException();
+		}
 		Developer savestatus = developerService.blockUser(devId);
 		return ResponseEntity.ok().body(savestatus);
 		}
 	
 	@PutMapping("/unblockdeveloper/{devId}")
 	public ResponseEntity<Developer> unblockUser(@PathVariable("devId") int devId) {
+		Optional<Developer> opt = developerRepository.findById(devId);
+		if (opt.isEmpty()) {
+			throw new DeveloperNotFoundException();
+		}
 		Developer savestatus = developerService.unblockUser(devId);
 		return ResponseEntity.ok().body(savestatus);
 		}
