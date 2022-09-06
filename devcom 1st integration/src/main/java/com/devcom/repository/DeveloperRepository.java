@@ -9,5 +9,5 @@ import com.devcom.entity.Developer;
 
 @Repository
 public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
-	public Optional<Developer> findByMail(String email);
+	public Optional<Developer> findByEmail(String email);
 }
