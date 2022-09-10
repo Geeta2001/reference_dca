@@ -8,6 +8,7 @@ import Registration from './components/Registration';
 function App() {
   return (
     <div className="App">
+      <Nav/>
       <Footer/>
     </div>
   );
