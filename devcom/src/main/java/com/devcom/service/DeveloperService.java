@@ -16,6 +16,8 @@ public interface DeveloperService {
 
 	public Developer editDeveloper(DeveloperDTO developerdto, int devId);
 
+//	public String removeDeveloper(int devId);
+	
 	public Developer blockUser(int devId);
 
 	public Developer unblockUser(int devId);

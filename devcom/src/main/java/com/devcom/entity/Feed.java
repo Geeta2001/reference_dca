@@ -1,6 +1,6 @@
 package com.devcom.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -28,6 +28,26 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 		private Developer developer;
 		
 		
+		public Feed() {
+			super();
+		}
+		
+		public Feed(int feedid, String query, Date feedDate, String topic, int relevance) {
+			super();
+			this.feedid = feedid;
+			this.query = query;
+			this.feedDate = feedDate;
+			this.topic = topic;
+			this.relevance = relevance;
+		}
+
+		public Feed(String query, String topic, Date feedDate) {
+			super();
+			this.query = query;
+			this.topic = topic;
+			this.feedDate = feedDate;
+		}
+
 		public Developer getDeveloper() {
 			return developer;
 		}

@@ -34,6 +34,18 @@ public class Response {
 	@JoinColumn(name="rf_fk")
 	private Feed feed;
 	
+	
+	public Response() {
+		super();
+	}
+	
+	public Response(String answer, Date respDate,int respId) {
+		super();
+		this.respId = respId;
+		this.answer = answer;
+		this.respDate = respDate;
+	}
+
 	public Feed getFeed() {
 		return feed;
 	}

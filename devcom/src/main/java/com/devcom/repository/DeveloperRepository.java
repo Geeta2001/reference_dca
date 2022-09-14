@@ -12,5 +12,6 @@ public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
 
 	Optional<Developer> findByEmail(String email);
 
+
 	
 }

@@ -1,4 +1,5 @@
 package com.devcom.service;
+import java.util.List;
 import java.util.Optional;
 
 import com.devcom.dto.FeedDTO;
@@ -8,4 +9,5 @@ public interface FeedService {
 	public Feed addFeed(FeedDTO feeddto);
 	public String removeFeed(int feedid);
 	public Optional<Feed> getFeed(int feedid);
+	public List<Feed> getAllFeeds();
 }

@@ -14,16 +14,11 @@ import javax.validation.constraints.NotEmpty;
 		
 		@NotEmpty(message = "password is required")
 		private String password;
-		
-		@NotEmpty(message = "role is required")
-		private String role;
-
-		public UserDTO(@Email String userName, @NotEmpty(message = "password is required") String password,
-				@NotEmpty(message = "role is required") String role) {
+	
+		public UserDTO(@Email String userName, @NotEmpty(message = "password is required") String password) {
 			super();
 			this.userName = userName;
 			this.password = password;
-			this.role = role;
 		}
 
 		public String getUserName() {
@@ -42,14 +37,6 @@ import javax.validation.constraints.NotEmpty;
 			this.password = password;
 		}
 
-		public String getRole() {
-			return role;
-		}
-
-		public void setRole(String role) {
-			this.role = role;
-		}
-		
 		
 
 	}

@@ -22,6 +22,18 @@ public class User {
 	String password;
 		
 	String role;
+	
+	
+	public User() {
+		super();
+	}
+
+	public User(@Email String userName, String password, String role) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.role = role;
+	}
 
 	public int getUserId() {
 		return userId;

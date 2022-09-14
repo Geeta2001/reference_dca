@@ -33,6 +33,23 @@ public class Developer {
 	private boolean isVerified;
 	private boolean isBlocked;
  
+	
+	public Developer(int devId, String name, String email, String skillLevel, Date memberSince) {
+		super();
+		this.devId = devId;
+		this.name = name;
+		this.email = email;
+		this.skillLevel = skillLevel;
+		this.memberSince = memberSince;
+	}
+	public Developer(String name, String email, String skillLevel) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.skillLevel = skillLevel;
+	}
+	public Developer() {
+	}
 	public int getDevId() {
 		return devId;
 	}
