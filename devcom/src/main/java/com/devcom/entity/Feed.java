@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 		int relevance;
 		
 		@ManyToOne(cascade =CascadeType.MERGE)
-		@JoinColumn(name="fd_fk")
+		@JoinColumn(name="fFeedId")
 		private Developer developer;
 		
 		

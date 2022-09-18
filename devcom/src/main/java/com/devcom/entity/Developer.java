@@ -25,7 +25,7 @@ public class Developer {
 	private Date memberSince;
 	
 	@OneToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name="ud_fk")
+	@JoinColumn(name="fDevId")
 	private User user;
 	
 	private int totalFeeds;

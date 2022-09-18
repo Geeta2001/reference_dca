@@ -14,6 +14,8 @@ import javax.validation.constraints.NotEmpty;
 		
 		@NotEmpty(message = "password is required")
 		private String password;
+		
+		private boolean blocked;
 	
 		public UserDTO(@Email String userName, @NotEmpty(message = "password is required") String password) {
 			super();
@@ -35,6 +37,14 @@ import javax.validation.constraints.NotEmpty;
 
 		public void setPassword(String password) {
 			this.password = password;
+		}
+
+		public boolean isBlocked() {
+			return blocked;
+		}
+
+		public void setBlocked(boolean blocked) {
+			this.blocked = blocked;
 		}
 
 		

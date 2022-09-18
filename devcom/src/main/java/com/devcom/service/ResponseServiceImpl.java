@@ -1,7 +1,10 @@
 package com.devcom.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +18,6 @@ import com.devcom.exception.ResponseNotFoundException;
 import com.devcom.repository.DeveloperRepository;
 import com.devcom.repository.FeedRepository;
 import com.devcom.repository.ResponseRepository;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Service
 public class ResponseServiceImpl implements ResponseService {
@@ -85,6 +85,31 @@ public class ResponseServiceImpl implements ResponseService {
 		if (opt.isEmpty()) {
 			throw new ResponseNotFoundException();
 		}
+		
 		return responseRepository.findById(respid);
 	}
+	@Override
+	public List<Response> getAllResponses() {
+		
+		return  responseRepository.findAll();
+	}
+
+	@Override
+	public Optional<Response> getResponseByFeed(int feedid) {
+		
+		return responseRepository.findById(feedid);
+	}
+
+//	@Override
+//	public List<Response> getResponseByFeed(int rf_fk) {
+//		
+//		return feedRepository.findAllByFeedId(rf_fk);
+//	}
+
+//	@Override
+//	public List<Response> getResponseByDeveloper(int devId) throws UnknownDeveloperException {
+//		
+//		return responseRepository.findById(devId);
+//	}
+
 }

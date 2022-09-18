@@ -11,4 +11,6 @@ public interface FeedRepository extends JpaRepository<Feed,Integer> {
 
 	Optional<Feed> findByQuery(String query);
 
+//	List<Response> findAllByFeedId(int rf_fk);
+
 }

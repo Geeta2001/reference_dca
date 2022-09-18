@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devcom.entity.Developer;
+import com.devcom.entity.User;
 import com.devcom.exception.DeveloperNotFoundException;
 import com.devcom.exception.FeedNotFoundException;
 import com.devcom.exception.ResponseNotFoundException;
 import com.devcom.service.DeveloperService;
 import com.devcom.service.FeedService;
 import com.devcom.service.ResponseService;
+import com.devcom.service.UserService;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
@@ -36,10 +38,17 @@ public class AdminController {
 	@Autowired
 	DeveloperService developerService;
 	
+	@Autowired
+	UserService userService;
+	
 	
 	@GetMapping("/alldetails")
 	public List<Developer> getAllDevelopers() {
 		return developerService.getAllDevelopers();
+	}
+	@GetMapping("/alluserdetails")
+	public List<User> getAllUser() {
+		return userService.getAllUser();
 	}
 	
 	@PutMapping("/blockdeveloper/{devId}")
@@ -53,6 +62,17 @@ public class AdminController {
 		Developer savestatus = developerService.unblockUser(devId);
 		return ResponseEntity.ok().body(savestatus);
 		}
+	@PutMapping("/blockuser/{userId}")
+	public ResponseEntity<User> blockUserId(@PathVariable("userId") int userId){
+		User savestatus = userService.blockUserId(userId);
+		return ResponseEntity.ok().body(savestatus);
+	}
+	
+	@PutMapping("/unblockuser/{userId}")
+	public ResponseEntity<User> unblockUserId(@PathVariable("userId") int userId){
+		User savestatus = userService.unblockUserId(userId);
+		return ResponseEntity.ok().body(savestatus);
+	}
 	
 	@DeleteMapping("/deletefeed/{feedId}")
 	public ResponseEntity<String> removeFeed(@PathVariable("feedId") int feedId) throws FeedNotFoundException {
@@ -77,4 +97,5 @@ public class AdminController {
 	     	responseService.removeResponse(respId);
 			return new ResponseEntity<>("Response Removed", HttpStatus.OK);	
 	}
+	
 }

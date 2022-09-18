@@ -7,5 +7,9 @@ import com.devcom.entity.Response;
 
 @Repository
 public interface ResponseRepository extends JpaRepository<Response,Integer> {
+	
+
+
+	//List<Response> findAllByFeedId(int rf_fk);
 
 }

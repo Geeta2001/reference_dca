@@ -27,11 +27,11 @@ public class Response {
 	private Date respDate;
 	
 	@OneToOne(targetEntity = Developer.class, cascade = CascadeType.MERGE)
-	@JoinColumn(name="rd_fk")
+	@JoinColumn(name="fDevId")
 	private Developer developer;
 	
 	@ManyToOne(cascade =CascadeType.MERGE)
-	@JoinColumn(name="rf_fk")
+	@JoinColumn(name="fFeedId")
 	private Feed feed;
 	
 	

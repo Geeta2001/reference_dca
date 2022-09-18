@@ -45,9 +45,10 @@ public class DeveloperController {
 	FeedService feedService;
 	
 	@PostMapping("/adddetails")
-	public ResponseEntity<String> addDeveloper(@RequestBody DeveloperDTO developerdto) throws UserNotFoundException, DeveloperExistsException {
-			developerService.addDeveloper(developerdto);
-			return new ResponseEntity<>("Success", HttpStatus.OK);
+	public ResponseEntity<Integer> addDeveloper(@RequestBody DeveloperDTO developerdto) throws UserNotFoundException, DeveloperExistsException {
+		Developer developer=developerService.addDeveloper(developerdto);
+			 
+			return new ResponseEntity<>(developer.getDevId(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/getdetails/{devId}")
@@ -61,17 +62,26 @@ public class DeveloperController {
 		return ResponseEntity.ok().body(updateDev);
 	}
 	
+	//.................FEED CONTROLLER....................
+	
 	@PostMapping("/addfeed")
-	public ResponseEntity<String> addFeed(@RequestBody FeedDTO feeddto) throws DeveloperNotFoundException
+	public ResponseEntity<Integer> addFeed(@RequestBody FeedDTO feeddto) throws DeveloperNotFoundException
 	{
-		feedService.addFeed(feeddto);
-		return new ResponseEntity<>("Feed added", HttpStatus.OK);
+		Feed feed=feedService.addFeed(feeddto);
+		return new ResponseEntity<>(feed.getFeedid(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/getfeed/{feedid}")
 	public Optional<Feed> getFeed(@PathVariable int feedid ) throws FeedNotFoundException {
 		return feedService.getFeed(feedid);	
 	}
+	
+	@GetMapping("/allfeeds")
+	public List<Feed> getAllFeeds() {
+		return feedService.getAllFeeds();
+	}
+	
+	//................RESPONSE CONTROLLER......................
 	
 	@PostMapping("/addresponse")
 	public ResponseEntity<String> addResponse(@RequestBody ResponseDTO responsedto) throws FeedNotFoundException, DeveloperNotFoundException {
@@ -85,14 +95,25 @@ public class DeveloperController {
 		Response updateResp = responseService.editResponse(respId, responsedto);
 		return ResponseEntity.ok().body(updateResp);
 	}
-	
-	@GetMapping("/allfeeds")
-	public List<Feed> getAllFeeds() {
-		return feedService.getAllFeeds();
-	}
+
 	
 	@GetMapping("/getresponse/{respid}")
 	public Optional<Response> getResponse(@PathVariable int respid ) throws ResponseNotFoundException {
 		return responseService.getResponse(respid);	
 	}
+	@GetMapping("/GetAllResponses")
+	public List<Response> getAllResponses() {
+		return responseService.getAllResponses();
+	}
+	
+	@GetMapping("/getresp/{feedid}")
+	public Optional<Response>  getResponseByFeed(@PathVariable int feedid) {
+		return responseService.getResponseByFeed(feedid);
+		
+	}
+//	@GetMapping("/getresponse/{devId}")
+//    public List<Response> getResponseByDeveloper(@PathVariable int devId) throws UnknownDeveloperException {
+//		
+//		return responseService.getResponseByDeveloper(devId);
+//	}
 }

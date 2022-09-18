@@ -49,4 +49,9 @@ public class GlobalExceptionHandler {
 		
 		return new ResponseEntity<>("User already exists",HttpStatus.NOT_FOUND);
 	}
+	@ExceptionHandler(value=UserIsBlockedException.class)
+	public ResponseEntity<String> userIsBlockedExceptionHandler(UserIsBlockedException ex){
+		
+		return new ResponseEntity<>("User is blocked",HttpStatus.NOT_FOUND);
+	}
 }

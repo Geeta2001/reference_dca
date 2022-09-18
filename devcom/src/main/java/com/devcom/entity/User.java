@@ -23,6 +23,7 @@ public class User {
 		
 	String role;
 	
+	boolean blocked;
 	
 	public User() {
 		super();
@@ -66,6 +67,16 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public boolean isBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+
+	
 	
 	
 }
